@@ -1,4 +1,5 @@
-﻿using EmprestimosLivos.Data;
+﻿
+using EmprestimosLivos.Data;
 using EmprestimosLivos.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +9,7 @@ namespace EmprestimosLivos.Controllers
     {
         readonly private Contexxt _db;
 
-        public EmprestimosController(Contexxt db) 
+        public EmprestimosController(Contexxt db)
         {
             _db = db;
         }
@@ -17,5 +18,25 @@ namespace EmprestimosLivos.Controllers
             IEnumerable<EmprestimosModel> emprestimos = _db.tb_Emprestimo;
             return View(emprestimos);
         }
+
+        [HttpGet] // Cadastrar -------------------------------------------------------------------
+        public IActionResult Cadastrar()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Cadastrar(EmprestimosModel emprestimo)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.tb_Emprestimo.Add(emprestimo);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+        //-----------------------------------------------------------------------------------------
+
+
     }
 }

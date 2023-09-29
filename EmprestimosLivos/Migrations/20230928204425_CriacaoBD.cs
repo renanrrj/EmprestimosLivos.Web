@@ -18,7 +18,7 @@ namespace EmprestimosLivos.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Recebedor = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    fornecedor = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Fornecedor = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LivroEmprestado = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DataEmprestimo = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },

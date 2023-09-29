@@ -1,36 +1,40 @@
 ﻿@model IEnumerable<EmprestimosModel>
 
 
-    <div class="container">
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h1>Empréstimos</h1>
+        <a class="btn btn-outline-success" asp-controller="Emprestimos" asp-action="Cadastrar">Cadastrar novo empréstimo</a>
+        </div>
 
-<table class="table table-hover">
+    <table class="table table-hover">
 
-    <thead>
-        <tr>
-            <th scope="col">Recebedor</th>
-            <th scope="col">Fornecedor</th>
-            <th scope="col">Livro</th>
-            <th scope="col">DataEmprestimo</th>
-        </tr>
-    </thead>
-    <tbody>
+        <thead>
+            <tr>
+                <th scope="col">Recebedor</th>
+                <th scope="col">Fornecedor</th>
+                <th scope="col">Livro</th>
+                <th scope="col">DataEmprestimo</th>
+            </tr>
+        </thead>
+        <tbody>
 
-        @if (Model != null) 
-        {
-            @foreach (var emprestimo in Model) // para cada item dentro desse model "emprestimo"
+            @if (Model != null)
             {
-                <tr>
-                    <th scope="row">@emprestimo.Recebedor</th>
-                    <td>@emprestimo.Fornecedor</td>
-                    <td>@emprestimo.LivroEmprestado</td>
-                    <td>@emprestimo.DataEmprestimo</td>
-                </tr>
+                @foreach (var emprestimo in Model) // para cada item dentro desse model "emprestimo"
+                {
+                    <tr>
+                        <th scope="row">@emprestimo.Recebedor</th>
+                        <td>@emprestimo.Fornecedor</td>
+                        <td>@emprestimo.LivroEmprestado</td>
+                        <td>@emprestimo.DataEmprestimo</td>
+                    </tr>
+                }
+
             }
-            
-        }
-        
-    </tbody>
+
+        </tbody>
 
 
-</table>
+    </table>
 </div>
