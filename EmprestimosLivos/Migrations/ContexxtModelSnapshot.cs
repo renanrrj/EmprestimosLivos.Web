@@ -41,7 +41,7 @@ namespace EmprestimosLivos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("fornecedor")
+                    b.Property<string>("Fornecedor")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

@@ -9,7 +9,7 @@
         <h1 class="text-light">Cadastro de Empréstimos</h1>
     </div>
 
-    <form method="post" asp-controller="Emprestimo" asp-action="Cadastrar">
+    <form method="post" asp-controller="Emprestimos" asp-action="Cadastrar">        
 
         <div class="mb-3">
             <label for="Recebedor" class="form-label text-light">Recebedor:</label>
@@ -18,12 +18,12 @@
         </div>
         <div class="mb-3">
             <label for="Fornecedor" class="form-label text-light">Fornecedor:</label>
-            <input type="text" class="form-control" asp-for="Recebedor" id="Fornecedor" placeholder="Quem está Recebendo o livro.">
+            <input type="text" class="form-control" asp-for="Fornecedor" id="Fornecedor" placeholder="Quem está Recebendo o livro.">
 
         </div>
         <div class="mb-3">
             <label for="Livro" class="form-label text-light">Livro:</label>
-            <input type="text" class="form-control" asp-for="LivroEmprestado" id="Livro" placeholder="Qual o livro a ser emprestado.">
+            <input type="text" class="form-control" asp-for="LivroEmprestado" id="LivroEmprestado" placeholder="Qual o livro a ser emprestado.">
 
         </div>
 

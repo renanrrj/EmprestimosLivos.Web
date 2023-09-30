@@ -25,11 +25,11 @@ namespace EmprestimosLivos.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Cadastrar(EmprestimosModel emprestimo)
+        public IActionResult Cadastrar(EmprestimosModel emprestimos)
         {
             if (ModelState.IsValid)
             {
-                _db.tb_Emprestimo.Add(emprestimo);
+                _db.tb_Emprestimo.Add(emprestimos);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
