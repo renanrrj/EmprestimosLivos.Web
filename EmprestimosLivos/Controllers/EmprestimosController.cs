@@ -36,7 +36,33 @@ namespace EmprestimosLivos.Controllers
             return View();
         }
         //-----------------------------------------------------------------------------------------
+        [HttpGet] // Editar -------------------------------------------------------------------
+        public IActionResult Editar(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            EmprestimosModel emprestimo = _db.tb_Emprestimo.FirstOrDefault(x => x.Id == id);
+            if (emprestimo == null)
+            {
+                return NotFound();
+            }
 
+            return View(emprestimo);
+        }
+        [HttpPost]
+        public IActionResult Editar(EmprestimosModel emprestimo)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.tb_Emprestimo.Update(emprestimo);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(emprestimo);
+        }
+        //-----------------------------------------------------------------------------------------
 
     }
 }

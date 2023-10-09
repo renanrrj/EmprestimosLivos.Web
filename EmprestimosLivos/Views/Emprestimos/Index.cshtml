@@ -16,6 +16,7 @@
                 <th scope="col">Fornecedor</th>
                 <th scope="col">Livro</th>
                 <th scope="col">DataEmprestimo</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -29,6 +30,10 @@
                         <td>@emprestimo.Fornecedor</td>
                         <td>@emprestimo.LivroEmprestado</td>
                         <td>@emprestimo.DataEmprestimo</td>
+                        <td>
+                            <a class="btn btn-outline-warning" asp-controller="Emprestimos" asp-action="Editar" asp-route-id="@emprestimo.Id"  >Editar</a>
+                            <a class="btn btn-outline-danger" asp-controller="Emprestimos" asp-action="Excluir" asp-route-id="@emprestimo.Id" >Excluir</a>
+                        </td>
                     </tr>
                 }
 
