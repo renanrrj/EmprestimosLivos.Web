@@ -13,12 +13,13 @@ namespace EmprestimosLivos.Controllers
         {
             _db = db;
         }
+        //-----------------------------------------------------------------------------------------
         public IActionResult Index()
         {
             IEnumerable<EmprestimosModel> emprestimos = _db.tb_Emprestimo;
             return View(emprestimos);
         }
-
+        //-----------------------------------------------------------------------------------------
         [HttpGet] // Cadastrar -------------------------------------------------------------------
         public IActionResult Cadastrar()
         {
@@ -43,7 +44,9 @@ namespace EmprestimosLivos.Controllers
             {
                 return NotFound();
             }
+
             EmprestimosModel emprestimo = _db.tb_Emprestimo.FirstOrDefault(x => x.Id == id);
+
             if (emprestimo == null)
             {
                 return NotFound();
@@ -63,6 +66,34 @@ namespace EmprestimosLivos.Controllers
             return View(emprestimo);
         }
         //-----------------------------------------------------------------------------------------
+        [HttpGet] // Excluir-------------------------------------------------------------------
+        public IActionResult Excluir(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
 
+            EmprestimosModel emprestimo = _db.tb_Emprestimo.FirstOrDefault(x => x.Id == id);
+
+            if (emprestimo == null)
+            {
+                return NotFound();
+            }
+
+            return View(emprestimo);
+        }
+        [HttpPost]
+        public IActionResult Excluir(EmprestimosModel emprestimo)
+        {
+            if (emprestimo == null)
+            {
+                return NotFound();
+            }
+
+            _db.tb_Emprestimo.Remove(emprestimo);
+            _db.SaveChanges();
+            return RedirectToAction("Index");            
+        }
     }
 }
