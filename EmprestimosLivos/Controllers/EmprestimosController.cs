@@ -32,8 +32,12 @@ namespace EmprestimosLivos.Controllers
             {
                 _db.tb_Emprestimo.Add(emprestimos);
                 _db.SaveChanges();
+
+                TempData["MensagemSucesso"] = "CADASTRO realizado com SUCESSO";
+
                 return RedirectToAction("Index");
             }
+            TempData["MensagemErro"] = "Cadastro NÃO realizado com SUCESSO";
             return View();
         }
         //-----------------------------------------------------------------------------------------
@@ -61,8 +65,13 @@ namespace EmprestimosLivos.Controllers
             {
                 _db.tb_Emprestimo.Update(emprestimo);
                 _db.SaveChanges();
+
+                TempData["MensagemSucesso"] = "EDIÇÃO realizada com SUCESSO";
+
                 return RedirectToAction("Index");
             }
+
+            TempData["MensagemErro"] = "EDIÇÃO NÃO realizada com SUCESSO";
             return View(emprestimo);
         }
         //-----------------------------------------------------------------------------------------
@@ -93,6 +102,9 @@ namespace EmprestimosLivos.Controllers
 
             _db.tb_Emprestimo.Remove(emprestimo);
             _db.SaveChanges();
+
+            TempData["MensagemSucesso"] = "EXCLUSÃO realizada com SUCESSO";
+
             return RedirectToAction("Index");            
         }
     }
