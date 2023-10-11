@@ -1,7 +1,9 @@
 ﻿
+using ClosedXML.Excel;
 using EmprestimosLivos.Data;
 using EmprestimosLivos.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace EmprestimosLivos.Controllers
 {
@@ -30,6 +32,8 @@ namespace EmprestimosLivos.Controllers
         {
             if (ModelState.IsValid)
             {
+                emprestimos.DataEmprestimo = DateTime.Now;
+
                 _db.tb_Emprestimo.Add(emprestimos);
                 _db.SaveChanges();
 
@@ -63,7 +67,14 @@ namespace EmprestimosLivos.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.tb_Emprestimo.Update(emprestimo);
+                var emprestimosdb = _db.tb_Emprestimo.Find(emprestimo.Id);
+
+                emprestimosdb.Recebedor = emprestimo.Recebedor;
+                emprestimosdb.Fornecedor = emprestimo.Fornecedor;
+                emprestimosdb.LivroEmprestado = emprestimo.LivroEmprestado;
+
+
+                _db.tb_Emprestimo.Update(emprestimosdb);
                 _db.SaveChanges();
 
                 TempData["MensagemSucesso"] = "EDIÇÃO realizada com SUCESSO";
@@ -105,7 +116,45 @@ namespace EmprestimosLivos.Controllers
 
             TempData["MensagemSucesso"] = "EXCLUSÃO realizada com SUCESSO";
 
-            return RedirectToAction("Index");            
+            return RedirectToAction("Index");
         }
+        //-----------------------------------------------------------------------------------------
+        [HttpGet] // Exportar-------------------------------------------------------------------
+        public IActionResult Exportar()
+        {
+            var dados = GetDados();
+            using (XLWorkbook workbook = new XLWorkbook())
+            {
+                workbook.AddWorksheet(dados, "Dados empréstimos");
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    workbook.SaveAs(ms);
+                    return File(ms.ToArray(), "application/vnd.openxmlformats-officedocument.spredsheetml.sheet", "Relatório Emprestimos.xls");
+                }
+            }            
+        }
+        private DataTable GetDados() // instalar pacote do nugget ClosedXML
+        {
+            DataTable datatable = new DataTable();
+
+            datatable.TableName = "Dados Empréstimos";
+            datatable.Columns.Add("Recebedor", typeof(string));
+            datatable.Columns.Add("Fornecedor", typeof(string));
+            datatable.Columns.Add("Livro Emprestado", typeof(string));
+            datatable.Columns.Add("Data do Empréstimo", typeof(DateTime));
+
+            var dados = _db.tb_Emprestimo.ToList();
+
+            if (dados.Count > 0)
+            {
+                dados.ForEach(emprestimo =>
+                {
+                    datatable.Rows.Add(emprestimo.Recebedor, emprestimo.Fornecedor, emprestimo.LivroEmprestado, emprestimo.DataEmprestimo);
+                });
+            }
+            return datatable;
+        }
+
+        //-----------------------------------------------------------------------------------------
     }
 }
