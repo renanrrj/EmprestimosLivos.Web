@@ -22,6 +22,7 @@ namespace EmprestimosLivos.Controllers
             return View(emprestimos);
         }
         //-----------------------------------------------------------------------------------------
+
         [HttpGet] // Cadastrar -------------------------------------------------------------------
         public IActionResult Cadastrar()
         {
@@ -45,6 +46,7 @@ namespace EmprestimosLivos.Controllers
             return View();
         }
         //-----------------------------------------------------------------------------------------
+
         [HttpGet] // Editar -------------------------------------------------------------------
         public IActionResult Editar(int? id)
         {
